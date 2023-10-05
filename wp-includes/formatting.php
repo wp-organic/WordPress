@@ -2428,10 +2428,10 @@ function sanitize_sql_orderby( $orderby ) {
  */
 function sanitize_html_class( $classname, $fallback = '' ) {
 	// Strip out any percent-encoded characters.
-	$sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', $classname );
+	$sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', $classname ?? '' ); // PHP version 8.2 fix error - PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated
 
 	// Limit to A-Z, a-z, 0-9, '_', '-'.
-	$sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '', $sanitized );
+	$sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '', $sanitized ?? '' );  // PHP version 8.2 fix error - PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated
 
 	if ( '' === $sanitized && $fallback ) {
 		return sanitize_html_class( $fallback );
